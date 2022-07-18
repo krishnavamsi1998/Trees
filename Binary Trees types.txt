@@ -1,0 +1,22 @@
+Tree : A data structure which has hierarchical kind of data 
+
+Binary tree : A type of tree where each and every node has atmost 2 nodes 
+i.e 0,1,2 nodes
+
+
+Complete Binary tree :
+1. All levels are completely filled except last level
+2. Last should contains node only on left
+
+Perfect Binary tree:
+1.All leaf nodes are at the same level
+
+Balanced Binary Tree:
+1. A Binary tree with height of atmost log(N)
+
+Degenerate Tree:
+1. A Binary Tree where each and evry node has atmost 1 node
+ 
+
+  
+
