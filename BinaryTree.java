@@ -229,6 +229,16 @@ public class BinaryTree {
 		return res;
 	}
 	
+	//O(n),O(n)
+	
+	 public int maxDepth(Node root) {
+	        if(root==null)
+	            return 0;
+	        int l=maxDepth(root.left);
+	        int r=maxDepth(root.right);
+	        return 1+Math.max(l,r);
+	    }
+	
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
@@ -259,6 +269,8 @@ public class BinaryTree {
 		System.out.println("\nPOST-ORDER ITERATIVE :");
 		System.out.println(tree.postorderIterative(tree.root));
 		
+		System.out.println("\nHEIGHT/DEPTH :");
+		System.out.println(tree.maxDepth(tree.root));
 		
 	}
 
