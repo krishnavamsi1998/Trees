@@ -201,6 +201,34 @@ public class BinaryTree {
 		return res;
 	}
 	
+	//O(n),O(2n)
+	public List<Integer> postorderIterative(Node root) {
+
+		List<Integer> res = new ArrayList<>();
+		Stack<Node> stack = new Stack<>();
+		Stack<Node> opstack = new Stack<>();
+
+		if (root == null)
+			return res;
+
+		stack.push(root);
+
+		while (!stack.isEmpty()) {
+			root = stack.pop();
+			opstack.push(root);
+			if (root.left != null)
+				stack.push(root.left);
+			if (root.right != null)
+				stack.push(root.right);
+
+		}
+		while (!opstack.isEmpty()) {
+			res.add(opstack.pop().data);
+		}
+
+		return res;
+	}
+	
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
@@ -227,6 +255,9 @@ public class BinaryTree {
 		
 		System.out.println("\nIN-ORDER ITERATIVE :");
 		System.out.println(tree.inorderIterative(tree.root));
+		
+		System.out.println("\nPOST-ORDER ITERATIVE :");
+		System.out.println(tree.postorderIterative(tree.root));
 		
 		
 	}
