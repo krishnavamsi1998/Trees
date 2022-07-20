@@ -238,6 +238,30 @@ public class BinaryTree {
 	        int r=maxDepth(root.right);
 	        return 1+Math.max(l,r);
 	    }
+	 
+	 //O(n),O(n)
+	 public int diameterOfBinaryTree(Node root) {
+	        //reference variable
+	        int[] res=new int[1];
+	        diameter(root,res);
+	        return res[0];
+	        
+	        
+	    }
+	    public int diameter(Node root,int[] res)
+	    {
+	        if(root==null)
+	            return 0;
+	        int l=diameter(root.left,res);
+	        int r=diameter(root.right,res);
+	    //diameter of a
+	    // tree is nothing but maximum value of
+	    // (left_height + right_height + 1) for each node
+	        res[0]=Math.max(res[0],l+r);
+	        
+	        return 1+Math.max(l,r); 
+	       
+	    }
 	
 	public static void main(String[] args) {
 	
@@ -271,6 +295,11 @@ public class BinaryTree {
 		
 		System.out.println("\nHEIGHT/DEPTH :");
 		System.out.println(tree.maxDepth(tree.root));
+		
+		System.out.println("\nDIAMETER :");
+		System.out.println(tree.diameterOfBinaryTree(tree.root));
+		
+		
 		
 	}
 
