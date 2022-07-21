@@ -262,7 +262,47 @@ public class BinaryTree {
 	        return 1+Math.max(l,r); 
 	       
 	    }
-	
+	    
+	    //O(n),O(n)
+	    
+	    public boolean hasPathSum(Node root, int targetSum) {
+	        
+	        if(root==null)
+	            return false;
+	        if(root.data==targetSum && (root.left==null && root.right==null))
+	            return true;
+	        
+	        return hasPathSum(root.left,targetSum-root.data) || hasPathSum(root.right,targetSum-root.data);
+	            
+	        
+	    }
+	    
+	    //O(n),O(n)
+	    public List<List<Integer>> allPathSum(Node root, int targetSum) {
+	        
+	        List<List<Integer>> paths=new ArrayList() ;
+	        helper(root,targetSum,new ArrayList<Integer>(),paths);
+	        return paths;
+	        
+	        
+	    }
+	    
+	    void helper(Node root,int targetSum,ArrayList<Integer> path , List<List<Integer>> paths){
+	        
+	        if(root==null)
+	            return ;
+	        
+	        path.add(root.data);
+	        if(root.data==targetSum && (root.left ==null && root.right==null)){
+	           paths.add(path);
+	           return ;
+	        }
+	        
+	        helper(root.left,targetSum-root.data,new ArrayList<>(path) ,paths);
+	        helper(root.right,targetSum-root.data,new ArrayList<>(path) ,paths);
+	        
+	    }
+	    
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
@@ -298,6 +338,16 @@ public class BinaryTree {
 		
 		System.out.println("\nDIAMETER :");
 		System.out.println(tree.diameterOfBinaryTree(tree.root));
+		
+		
+		System.out.println("\nhas path for given sum ?:");
+		System.out.println(tree.hasPathSum(tree.root, 7));
+		
+		System.out.println("\nall path for given sum ?:");
+		
+		
+		
+		System.out.println(tree.allPathSum(tree.root,7));
 		
 		
 		
