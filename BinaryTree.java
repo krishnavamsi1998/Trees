@@ -303,6 +303,31 @@ public class BinaryTree {
 	        
 	    }
 	    
+	     ArrayList<ArrayList<Integer>> allPaths(Node root) {
+	    	 
+	    	 ArrayList<ArrayList<Integer>> paths=new ArrayList();
+	    	 
+	    	 pathsHelper(root,paths,new ArrayList<Integer>());
+	    	 
+			return paths;
+		}
+	    
+	     void pathsHelper(Node root, ArrayList<ArrayList<Integer>> paths, ArrayList<Integer> path) {
+	    	 
+	    	 if(root==null)
+	    		 return;
+	    	 
+	    	 path.add(root.data);
+	    	 if(root.left==null && root.right==null) {
+	    		 paths.add(path);
+	    	 }
+	    	
+	    	 pathsHelper(root.left,paths,new ArrayList<>(path));
+	    	 pathsHelper(root.right,paths,new ArrayList<>(path));
+		    
+			
+		}
+
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
@@ -349,8 +374,16 @@ public class BinaryTree {
 		
 		System.out.println(tree.allPathSum(tree.root,7));
 		
+		System.out.println("\nall paths from root to leaf:");
+		
+		
+		System.out.println(tree.allPaths(tree.root));
+		
+		
 		
 		
 	}
+
+	
 
 }
