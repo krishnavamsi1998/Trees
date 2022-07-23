@@ -82,13 +82,19 @@ public class BinaryTree {
 		q.add(node);
 
 		while (!q.isEmpty()) {
+			
 			int levels = q.size();
 			List<Integer> list = new ArrayList();
 			for (int i = 0; i < levels; i++) {
+				
+				Node curr=q.peek();
+				
+								
 				if (q.peek().left != null)
-					q.add(q.peek().left);
+					q.add(curr.left);
 				if (q.peek().right != null)
-					q.add(q.peek().right);
+					q.add(curr.right);
+				
 				list.add(q.poll().data);
 
 			}
@@ -348,14 +354,64 @@ public class BinaryTree {
 			return root;
 
 		}
+		
+		//O(n),O(n) 
+		public List<Integer> rightSideView(Node root) {
+
+			List<Integer> list = new ArrayList();
+
+			rightSideViewHelper(root, 0, list);
+
+			return list;
+
+		}
+
+		void rightSideViewHelper(Node root, int level, List<Integer> list) {
+
+			if (root == null)
+				return;
+
+			if (level == list.size())
+				list.add(root.data);
+
+			rightSideViewHelper(root.right, level + 1, list);
+			rightSideViewHelper(root.left, level + 1, list);
+
+		}
+		
+		//O(n),O(n)
+		
+		ArrayList<Integer> leftSideView(Node root) {
+
+			ArrayList<Integer> list = new ArrayList();
+
+			leftSideViewHelper(root, 0, list);
+
+			return list;
+
+		}
+
+		void leftSideViewHelper(Node root, int level, ArrayList<Integer> list) {
+
+			if (root == null)
+				return;
+
+			if (level == list.size())
+				list.add(root.data);
+
+			leftSideViewHelper(root.left, level + 1, list);
+			leftSideViewHelper(root.right, level + 1, list);
+
+		}
 
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
-		tree.root = new Node(1);
-		tree.root.left = new Node(2);
-		tree.root.right = new Node(3);
-		tree.root.left.left = new Node(4);
+		 tree.root = new Node(1);
+		 tree.root.left = new Node(2);
+		 tree.root.right = new Node(3);
+	     tree.root.left.left = new Node(4);
+	     
 		System.out.println("IN-ORDER :");
 		tree.inorder(tree.root);
 		System.out.println("\nPRE-ORDER :");
@@ -400,14 +456,20 @@ public class BinaryTree {
 		
 		System.out.println(tree.allPaths(tree.root));
 		
-		System.out.println("\nmirro of tree/invert tree:");
+		System.out.println("\nmirror of tree/invert tree:");
 		
-		tree.root=tree.invertTree(tree.root);
+		//tree.root=tree.invertTree(tree.root);
 		
-		tree.preorder(tree.root);
+		//tree.preorder(tree.root);
 		
+		System.out.println("\n right side view tree:");
 		
+		System.out.println(tree.rightSideView(tree.root));
 		
+		System.out.println("\n right side view tree:");
+		
+		System.out.println(tree.leftSideView(tree.root));
+	
 		
 	}
 
