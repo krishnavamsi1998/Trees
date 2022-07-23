@@ -303,29 +303,50 @@ public class BinaryTree {
 	        
 	    }
 	    
-	     ArrayList<ArrayList<Integer>> allPaths(Node root) {
+	     ArrayList<String> allPaths(Node root) {
 	    	 
-	    	 ArrayList<ArrayList<Integer>> paths=new ArrayList();
+	    	 ArrayList<String> paths=new ArrayList();
 	    	 
-	    	 pathsHelper(root,paths,new ArrayList<Integer>());
+	    	 pathsHelper(root,paths,new String());
 	    	 
 			return paths;
 		}
 	    
-	     void pathsHelper(Node root, ArrayList<ArrayList<Integer>> paths, ArrayList<Integer> path) {
+	     void pathsHelper(Node root, ArrayList<String> paths,String path) {
 	    	 
 	    	 if(root==null)
 	    		 return;
 	    	 
-	    	 path.add(root.data);
+	    	 if(root.left==null && root.right==null)
+	    		 path+=root.data;
+	    	 else	    		 
+	    		 path+=root.data+"->";
+	    	 
 	    	 if(root.left==null && root.right==null) {
+	    		 
 	    		 paths.add(path);
 	    	 }
 	    	
-	    	 pathsHelper(root.left,paths,new ArrayList<>(path));
-	    	 pathsHelper(root.right,paths,new ArrayList<>(path));
+	    	 pathsHelper(root.left,paths,new String(path));
+	    	 pathsHelper(root.right,paths,new String(path));
 		    
 			
+		}
+	    
+	    //O(n),O(n)
+	     
+		public Node invertTree(Node root) {
+
+			if (root == null)
+				return null;
+
+			Node left = invertTree(root.left);
+			Node right = invertTree(root.right);
+
+			root.left = right;
+			root.right = left;
+			return root;
+
 		}
 
 	public static void main(String[] args) {
@@ -378,6 +399,12 @@ public class BinaryTree {
 		
 		
 		System.out.println(tree.allPaths(tree.root));
+		
+		System.out.println("\nmirro of tree/invert tree:");
+		
+		tree.root=tree.invertTree(tree.root);
+		
+		tree.preorder(tree.root);
 		
 		
 		
