@@ -403,6 +403,17 @@ public class BinaryTree {
 			leftSideViewHelper(root.right, level + 1, list);
 
 		}
+		
+		//sum of all nodes
+		//O(n),O(n)
+		
+		int sumBT(Node head) {
+			Node root = head;
+			if (root == null)
+				return 0;
+
+			return root.data + sumBT(root.left) + sumBT(root.right);
+		}
 
 	public static void main(String[] args) {
 	
@@ -469,7 +480,10 @@ public class BinaryTree {
 		System.out.println("\n right side view tree:");
 		
 		System.out.println(tree.leftSideView(tree.root));
-	
+		
+		System.out.println("\n sum of all nodes :");
+		System.out.println(tree.sumBT(tree.root));
+		
 		
 	}
 
