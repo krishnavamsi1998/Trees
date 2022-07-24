@@ -1,10 +1,13 @@
 package trees;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.TreeMap;
 
 class Node
 {
@@ -19,6 +22,19 @@ class Node
 	}
 }
 
+
+class pair
+{
+	int value;
+	int level;
+	public pair(int value, int level) {
+		
+		this.value = value;
+		this.level = level;
+	}
+	
+	
+}
 
 public class BinaryTree {
 	
@@ -414,6 +430,40 @@ public class BinaryTree {
 
 			return root.data + sumBT(root.left) + sumBT(root.right);
 		}
+		
+		// O(nlogn),O(n)
+		ArrayList<Integer> topView(Node root) {
+			ArrayList<Integer> res = new ArrayList();
+			Map<Integer, pair> map = new TreeMap();
+
+			// initial : level -0, distance(from root) - 0
+			topViewHelper(root, map, 0, 0);
+
+			for (Map.Entry<Integer, pair> entry : map.entrySet()) {
+
+				res.add(entry.getValue().value);
+
+			}
+
+			return res;
+		}
+
+		void topViewHelper(Node root, Map<Integer, pair> map, int dist, int level) {
+
+			if (root == null)
+				return;
+
+			// for bottom levl : map.get(dist).level<=level
+
+			if (map.get(dist) == null || map.get(dist).level > level) {
+
+				map.put(dist, new pair(root.data, level));
+			}
+
+			topViewHelper(root.left, map, dist - 1, level + 1);
+			topViewHelper(root.right, map, dist + 1, level + 1);
+
+		}
 
 	public static void main(String[] args) {
 	
@@ -422,6 +472,9 @@ public class BinaryTree {
 		 tree.root.left = new Node(2);
 		 tree.root.right = new Node(3);
 	     tree.root.left.left = new Node(4);
+	     tree.root.left.right=new Node(5);
+	     
+	     
 	     
 		System.out.println("IN-ORDER :");
 		tree.inorder(tree.root);
@@ -483,6 +536,10 @@ public class BinaryTree {
 		
 		System.out.println("\n sum of all nodes :");
 		System.out.println(tree.sumBT(tree.root));
+		
+		System.out.println("\n top view of binary tree ");
+		System.out.println(tree.topView(tree.root));
+		
 		
 		
 	}
