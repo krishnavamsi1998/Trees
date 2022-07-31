@@ -1,6 +1,7 @@
 package trees;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -464,6 +465,52 @@ public class BinaryTree {
 			topViewHelper(root.right, map, dist + 1, level + 1);
 
 		}
+		
+		//O(n2),O(n)
+
+		List<List<Integer>> zigzaglevel(Node node) {
+			// store level wise nodes
+
+			List<List<Integer>> res = new ArrayList();
+
+			if (node == null)
+				return res;
+
+			Queue<Node> q = new LinkedList<>();
+
+			q.add(node);
+			int c = 0;
+			while (!q.isEmpty()) {
+
+				int levels = q.size();
+				List<Integer> list = new ArrayList();
+
+				for (int i = 0; i < levels; i++) {
+
+					Node curr = q.peek();
+
+					if (q.peek().left != null)
+						q.add(curr.left);
+					if (q.peek().right != null)
+						q.add(curr.right);
+
+					list.add(q.poll().data);
+
+				}
+				if (c == 0) {
+					c = 1;
+					res.add(list);
+				} else {
+					c = 0;
+					Collections.reverse(list);
+					res.add(list);
+				}
+
+			}
+
+			return res;
+
+		}
 
 	public static void main(String[] args) {
 	
@@ -540,7 +587,9 @@ public class BinaryTree {
 		System.out.println("\n top view of binary tree ");
 		System.out.println(tree.topView(tree.root));
 		
-		
+		System.out.println("\n Zig zag level order : ");
+		System.out.println(tree.zigzaglevel(tree.root));
+
 		
 	}
 
