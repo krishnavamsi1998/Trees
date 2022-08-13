@@ -511,6 +511,29 @@ public class BinaryTree {
 			return res;
 
 		}
+		
+		//O(n),O(1)
+		//refer tuf
+
+		public void flattenToLinkedList(Node root) {
+
+			Node curr = root;
+			while (curr != null) {
+				if (curr.left != null) {
+					Node prev = curr.left;
+
+					while (prev.right != null)
+						prev = prev.right;
+
+					prev.right = curr.right;
+					curr.right = curr.left;
+					curr.left = null;
+				}
+
+				curr = curr.right;
+			}
+
+		}
 
 	public static void main(String[] args) {
 	
@@ -589,7 +612,13 @@ public class BinaryTree {
 		
 		System.out.println("\n Zig zag level order : ");
 		System.out.println(tree.zigzaglevel(tree.root));
-
+		
+		System.out.println("\n flatten to linked list : ");
+		tree.flattenToLinkedList(tree.root);
+		
+		tree.preorder(tree.root);
+		
+		
 		
 	}
 
