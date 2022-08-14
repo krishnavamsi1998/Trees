@@ -534,6 +534,41 @@ public class BinaryTree {
 			}
 
 		}
+		
+		//O(n),O(1)
+		
+		void morrisPreorder(Node root) {
+
+			Node curr = root;
+
+			while (curr != null) {
+				if (curr.left == null) {
+					System.out.print(curr.data + " ");
+					curr = curr.right;
+				} else {
+					Node prev = curr.left;
+					// traverse to last right node of left sub tree
+					while (prev.right != null && prev.right != curr)
+						prev = prev.right;
+
+					// connect link to curr and go left
+					if (prev.right == null) {
+						prev.right = curr;
+						System.out.print(curr.data + " ");
+						curr = curr.left;
+					}
+					// cut the link and go right
+					else {
+						prev.right = null;
+						curr = curr.right;
+					}
+
+				}
+
+			}
+		}
+			
+		
 
 	public static void main(String[] args) {
 	
@@ -617,6 +652,12 @@ public class BinaryTree {
 		tree.flattenToLinkedList(tree.root);
 		
 		tree.preorder(tree.root);
+		
+		System.out.println("\n morris pre order ");
+		tree.morrisPreorder(tree.root);
+		
+		
+		
 		
 		
 		
