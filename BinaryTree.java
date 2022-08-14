@@ -254,11 +254,11 @@ public class BinaryTree {
 	
 	//O(n),O(n)
 	
-	 public int maxDepth(Node root) {
+	 public int height(Node root) {
 	        if(root==null)
 	            return 0;
-	        int l=maxDepth(root.left);
-	        int r=maxDepth(root.right);
+	        int l=height(root.left);
+	        int r=height(root.right);
 	        return 1+Math.max(l,r);
 	    }
 	 
@@ -567,8 +567,28 @@ public class BinaryTree {
 
 			}
 		}
-			
 		
+		// O(n2),O(n)
+		// if height diff bw left subtree and right subtree is <=1 at every node
+		// then its called balanced binary tree
+		boolean isBalanced(Node root) {
+
+			
+			int lh, rh;
+
+			if (root == null)
+				return true; 
+			lh = height(root.left);
+			rh = height(root.right);
+
+			if (Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right))
+				return true;
+
+			return false;
+			 
+			
+
+		}
 
 	public static void main(String[] args) {
 	
@@ -605,7 +625,7 @@ public class BinaryTree {
 		System.out.println(tree.postorderIterative(tree.root));
 		
 		System.out.println("\nHEIGHT/DEPTH :");
-		System.out.println(tree.maxDepth(tree.root));
+		System.out.println(tree.height(tree.root));
 		
 		System.out.println("\nDIAMETER :");
 		System.out.println(tree.diameterOfBinaryTree(tree.root));
@@ -649,12 +669,15 @@ public class BinaryTree {
 		System.out.println(tree.zigzaglevel(tree.root));
 		
 		System.out.println("\n flatten to linked list : ");
-		tree.flattenToLinkedList(tree.root);
+		//tree.flattenToLinkedList(tree.root);
 		
 		tree.preorder(tree.root);
 		
 		System.out.println("\n morris pre order ");
 		tree.morrisPreorder(tree.root);
+		
+		System.out.println("\n balanced binary tree : ");
+		System.out.println(tree.isBalanced(tree.root));
 		
 		
 		
