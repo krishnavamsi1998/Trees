@@ -532,6 +532,11 @@ public class BinaryTree {
 
 				curr = curr.right;
 			}
+			
+			while(root!=null) {
+				System.out.print(root.data+" ");
+				root=root.right;
+			}
 
 		}
 		
@@ -587,6 +592,53 @@ public class BinaryTree {
 			return false;
 			 
 			
+
+		}
+		
+		static Node head=null;
+		Node prev=null;
+		
+		//In order conversion 
+		//O(n),O(1)/O(n)
+		void toDLL(Node root) {
+			if (root == null)
+				return;
+
+			toDLL(root.left);
+
+			// here last left node
+			if (prev == null)// means this is first node
+				head = root;
+			else {
+				root.left = prev;
+				prev.right = root;
+
+			}
+			prev = root;
+
+			// now right
+			toDLL(root.right);
+
+		}
+
+		void printDLL(Node head) {
+			Node temp = head;
+			Node prev = null;
+
+			while (temp != null) {
+				System.out.print(temp.data + "==");
+				temp = temp.right;
+				if (temp != null)
+					prev = temp;
+			}
+			System.out.println();
+			System.out.println("dll reverse order :");
+
+			while (prev != null) {
+				System.out.print(prev.data + "==");
+				prev = prev.left;
+
+			}
 
 		}
 
@@ -668,16 +720,21 @@ public class BinaryTree {
 		System.out.println("\n Zig zag level order : ");
 		System.out.println(tree.zigzaglevel(tree.root));
 		
-		System.out.println("\n flatten to linked list : ");
+		//System.out.println("\n flatten to linked list : In place ");
 		//tree.flattenToLinkedList(tree.root);
 		
-		tree.preorder(tree.root);
+		//tree.preorder(tree.root);
 		
 		System.out.println("\n morris pre order ");
 		tree.morrisPreorder(tree.root);
 		
 		System.out.println("\n balanced binary tree : ");
 		System.out.println(tree.isBalanced(tree.root));
+		
+		System.out.println("\n Convert To DLL : Inplace");
+		
+		tree.toDLL(tree.root);
+		tree.printDLL(head);
 		
 		
 		
