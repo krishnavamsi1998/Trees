@@ -641,6 +641,23 @@ public class BinaryTree {
 			}
 
 		}
+		
+		//O(n),O(n)
+		
+	     int sumOfLeftLeaves(Node root) {
+	        
+	        if(root==null)
+	            return 0;
+	        //check if its left leaf
+	        
+	        else if(root.left!=null && root.left.left==null && root.left.right==null)
+	            return root.left.data+sumOfLeftLeaves(root.right);
+	        
+	        //check both sides
+	        else
+	            return sumOfLeftLeaves(root.left)+sumOfLeftLeaves(root.right);
+	        
+	    }
 
 	public static void main(String[] args) {
 	
@@ -731,10 +748,13 @@ public class BinaryTree {
 		System.out.println("\n balanced binary tree : ");
 		System.out.println(tree.isBalanced(tree.root));
 		
-		System.out.println("\n Convert To DLL : Inplace");
+		//System.out.println("\n Convert To DLL : Inplace");
 		
-		tree.toDLL(tree.root);
-		tree.printDLL(head);
+		//tree.toDLL(tree.root);
+		//tree.printDLL(head);
+		
+		System.out.println("sum of left leafs");
+		System.out.println(tree.sumOfLeftLeaves(tree.root));
 		
 		
 		
