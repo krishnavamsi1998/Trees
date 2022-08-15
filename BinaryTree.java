@@ -658,6 +658,55 @@ public class BinaryTree {
 	            return sumOfLeftLeaves(root.left)+sumOfLeftLeaves(root.right);
 	        
 	    }
+	     
+		boolean isLeafNode(Node node) {
+			if (node == null)
+				return false;
+
+			if (node.left == null && node.right == null)
+				return true;
+			return false;
+
+		}
+
+		// O(n),O(1)
+		// bottom up approach
+
+		boolean isSumTree(Node root) {
+			if (root == null || isLeafNode(root))
+				return true;
+
+			int ls;
+			int rs;
+
+			if (isSumTree(root.left) && isSumTree(root.right)) {
+				// left is null but right is there
+				if (root.left == null)
+					ls = 0;
+				else if (isLeafNode(root.left))
+					ls = root.left.data;
+				// non leaf logic
+				else
+					ls = 2 * root.left.data;
+
+				// same for right
+
+				if (root.right == null)
+					rs = 0;
+				else if (isLeafNode(root.right))
+					rs = root.right.data;
+				// non leaf logic
+				else
+					rs = 2 * root.right.data;
+
+				if (ls + rs == root.data)
+					return true;
+				else
+					return false;
+
+			}
+			return false;
+		}
 
 	public static void main(String[] args) {
 	
@@ -756,6 +805,8 @@ public class BinaryTree {
 		System.out.println("sum of left leafs");
 		System.out.println(tree.sumOfLeftLeaves(tree.root));
 		
+		System.out.println("sum tree or not : ");
+		System.out.println(tree.isSumTree(tree.root));
 		
 		
 		
