@@ -707,17 +707,55 @@ public class BinaryTree {
 			}
 			return false;
 		}
+		
+		// O(n2),O(n)
 
+		boolean isSubtree(Node T, Node S) {
+			// add code here.
+			if (S == null)
+				return true;
+
+			if (T == null)
+				return false;
+
+			if (isIdentical(T, S))
+				return true;
+			// left or right
+			return isSubtree(T.left, S) || isSubtree(T.right, S);
+
+		}
+	    
+	    //O(n),O(n)
+		//n is no of nodes in lesser nodes tree
+		
+		boolean isIdentical(Node a, Node b) {
+
+			if (a == null && b == null)
+				return true;
+
+			if (a != null && b != null) {
+				return a.data == b.data && isIdentical(a.left, b.left) && isIdentical(a.right, b.right);
+			}
+
+			return false;
+
+		}
+		
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
+		BinaryTree tree1 = new BinaryTree();
+		
 		 tree.root = new Node(1);
 		 tree.root.left = new Node(2);
 		 tree.root.right = new Node(3);
 	     tree.root.left.left = new Node(4);
 	     tree.root.left.right=new Node(5);
 	     
-	     
+	     tree1.root = new Node(2);
+		 tree1.root.left = new Node(4);
+		 tree1.root.right = new Node(5);
+	   
 	     
 		System.out.println("IN-ORDER :");
 		tree.inorder(tree.root);
@@ -805,9 +843,18 @@ public class BinaryTree {
 		System.out.println("sum of left leafs");
 		System.out.println(tree.sumOfLeftLeaves(tree.root));
 		
-		System.out.println("sum tree or not : ");
+		System.out.println("\nsum tree or not : ");
 		System.out.println(tree.isSumTree(tree.root));
 		
+//	     1                  
+//	   /  \
+//	  2    3           2
+//	 / \              / \
+//      4   5            4   5     == sub tree
+   
+		System.out.println("\nsub tree or not? : ");
+		
+		System.out.println(tree.isSubtree(tree.root, tree1.root));
 		
 		
 		
