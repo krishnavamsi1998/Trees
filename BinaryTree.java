@@ -741,6 +741,85 @@ public class BinaryTree {
 
 		}
 		
+		// O(n),O(a+b) , a=recursion stack space of main tree, b= recursion stack space
+		// of sub tree
+		boolean subTreeOptimized(Node main, Node sub) {
+
+			if (main == null)
+				return false;
+			if (sub == null)
+				return true;
+
+			List<Integer> mainInorderArray = new ArrayList<>();
+
+			List<Integer> subInorderArray = new ArrayList<>();
+
+			fillInOrderArray(main, mainInorderArray);
+
+			fillInOrderArray(sub, subInorderArray);
+
+			System.out.println(mainInorderArray + " " + subInorderArray);
+
+			// convert to string and check
+
+			// System.out.println(arrayListToString(mainInorderArray));
+
+			if (!(arrayListToString(mainInorderArray).contains(arrayListToString(subInorderArray))))
+				return false;
+
+			// in order is true, so
+			// continue checking with preorder
+
+			List<Integer> mainPreorderArray = new ArrayList<>();
+
+			List<Integer> subPreorderArray = new ArrayList<>();
+
+			fillPreOrderArray(main, mainPreorderArray);
+
+			fillPreOrderArray(sub, subPreorderArray);
+
+			System.out.println(mainPreorderArray + " " + subPreorderArray);
+
+			// final check
+			return arrayListToString(mainPreorderArray).contains(arrayListToString(subPreorderArray));
+
+		}
+
+		void fillInOrderArray(Node a, List<Integer> arr) {
+
+			if (a == null)
+				return;
+			fillInOrderArray(a.left, arr);
+
+			arr.add(a.data);
+
+			fillInOrderArray(a.right, arr);
+		}
+
+		void fillPreOrderArray(Node a, List<Integer> arr) {
+
+			if (a == null)
+				return;
+
+			arr.add(a.data);
+
+			fillPreOrderArray(a.left, arr);
+
+			fillInOrderArray(a.right, arr);
+		}
+
+		// O(n),O(n)
+
+		String arrayListToString(List<Integer> arr) {
+			String s = "";
+
+			for (int i = 0; i < arr.size(); i++)
+				s += arr.get(i);
+
+			return s;
+
+		}
+
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
@@ -846,17 +925,20 @@ public class BinaryTree {
 		System.out.println("\nsum tree or not : ");
 		System.out.println(tree.isSumTree(tree.root));
 		
-//	     1                  
+//		1                  
 //	   /  \
-//	  2    3           2
-//	 / \              / \
-//      4   5            4   5     == sub tree
+//	  2	  3        2
+//	 / \          / \
+//  4   5        4   5     == sub tree
    
 		System.out.println("\nsub tree or not? : ");
 		
 		System.out.println(tree.isSubtree(tree.root, tree1.root));
 		
 		
+		System.out.println("\n optimized version , sub tree or not? : ");
+		
+		System.out.println(tree.subTreeOptimized(tree.root, tree1.root));
 		
 		
 	}
