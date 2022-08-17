@@ -758,7 +758,7 @@ public class BinaryTree {
 
 			fillInOrderArray(sub, subInorderArray);
 
-			System.out.println(mainInorderArray + " " + subInorderArray);
+			//System.out.println(mainInorderArray + " " + subInorderArray);
 
 			// convert to string and check
 
@@ -778,7 +778,7 @@ public class BinaryTree {
 
 			fillPreOrderArray(sub, subPreorderArray);
 
-			System.out.println(mainPreorderArray + " " + subPreorderArray);
+			//System.out.println(mainPreorderArray + " " + subPreorderArray);
 
 			// final check
 			return arrayListToString(mainPreorderArray).contains(arrayListToString(subPreorderArray));
@@ -819,6 +819,21 @@ public class BinaryTree {
 			return s;
 
 		}
+		
+		//O(n),O(n)
+		
+		boolean areMirror(Node a, Node b) {
+
+			if (a == null && b == null)
+				return true;
+
+			if (a != null && b != null)
+				return a.data == b.data && areMirror(a.left, b.right) && areMirror(a.right, b.left);
+
+			// either of it's null , so they are not mirror
+			return false;
+
+		}
 
 	public static void main(String[] args) {
 	
@@ -834,6 +849,8 @@ public class BinaryTree {
 	     tree1.root = new Node(2);
 		 tree1.root.left = new Node(4);
 		 tree1.root.right = new Node(5);
+		 //tree1.root.right.right=new Node(6);
+		 
 	   
 	     
 		System.out.println("IN-ORDER :");
@@ -936,10 +953,13 @@ public class BinaryTree {
 		System.out.println(tree.isSubtree(tree.root, tree1.root));
 		
 		
-		System.out.println("\n optimized version , sub tree or not? : ");
+		System.out.println("\noptimized version , sub tree or not? : ");
 		
 		System.out.println(tree.subTreeOptimized(tree.root, tree1.root));
 		
+		System.out.println("\nmirror or not : ");
+		
+		System.out.println(tree.areMirror(tree.root, tree1.root));
 		
 	}
 
