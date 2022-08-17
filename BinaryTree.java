@@ -872,6 +872,31 @@ public class BinaryTree {
 					|| isIsomorphic(root1.left, root2.right) && isIsomorphic(root1.right, root2.left);
 
 		}
+		
+		// O(n),O(h)
+		// sum tree is where each node has the sum of left and right childs
+		int transformToSumTree(Node root) {
+			if (root == null)
+				return 0;
+
+			// left sum
+
+			int ls = transformToSumTree(root.left);
+
+			// right sum
+
+			int rs = transformToSumTree(root.right);
+
+			int old_val = root.data;
+
+			// update root value
+			root.data = ls + rs;
+
+			// logic
+
+			return old_val + root.data;
+
+		}
 
 	public static void main(String[] args) {
 	
@@ -1006,6 +1031,10 @@ public class BinaryTree {
 		System.out.println("\nIsomorphic or not: ");
 		
 		System.out.println(tree.isIsomorphic(tree.root, tree1.root));
+		
+		//System.out.println("\nConverting to sum tree :");
+		//System.out.println(tree.transformToSumTree(tree.root));
+		
 		
 	}
 
