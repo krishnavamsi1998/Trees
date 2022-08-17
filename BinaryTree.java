@@ -854,6 +854,24 @@ public class BinaryTree {
 	        return false;
 	    }
 	    
+		// O(min(m,n)),O(min(m,n))
+		boolean isIsomorphic(Node root1, Node root2) {
+
+			if (root1 == null && root2 == null)
+				return true;
+
+			if (root1 == null || root2 == null)
+				return false;
+
+			// don't forget this condition
+			if (root1.data != root2.data)
+				return false;
+
+			// either normal or flip
+			return isIsomorphic(root1.left, root2.left) && isIsomorphic(root1.right, root2.right)
+					|| isIsomorphic(root1.left, root2.right) && isIsomorphic(root1.right, root2.left);
+
+		}
 
 	public static void main(String[] args) {
 	
@@ -984,6 +1002,10 @@ public class BinaryTree {
 		System.out.println("\nsymmetric or not : ");
 		
 		System.out.println(tree.isSymmetric(tree.root));
+		
+		System.out.println("\nIsomorphic or not: ");
+		
+		System.out.println(tree.isIsomorphic(tree.root, tree1.root));
 		
 	}
 
