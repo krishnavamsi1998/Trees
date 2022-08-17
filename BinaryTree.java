@@ -834,6 +834,26 @@ public class BinaryTree {
 			return false;
 
 		}
+		
+		//O(n),O(n)
+		// similar to mirror image except that we pass same root
+		// check symmetric tree structure once
+		
+		public boolean isSymmetric(Node root) {
+	        return symmetricHelper(root,root);
+	        
+	    }
+	    
+	    boolean symmetricHelper(Node a,Node b)
+	    {
+	        if(a==null && b==null)
+	            return true;
+	        
+	        if(a!=null && b!=null)
+	            return a.data==b.data && symmetricHelper(a.left,b.right) && symmetricHelper(a.right,b.left);
+	        return false;
+	    }
+	    
 
 	public static void main(String[] args) {
 	
@@ -960,6 +980,10 @@ public class BinaryTree {
 		System.out.println("\nmirror or not : ");
 		
 		System.out.println(tree.areMirror(tree.root, tree1.root));
+		
+		System.out.println("\nsymmetric or not : ");
+		
+		System.out.println(tree.isSymmetric(tree.root));
 		
 	}
 
