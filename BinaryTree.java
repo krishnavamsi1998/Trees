@@ -897,7 +897,35 @@ public class BinaryTree {
 			return old_val + root.data;
 
 		}
+		
+		// O(n),O(n)
 
+		public int findLargestSubtreeSum(Node root) {
+			int[] ans = new int[1];
+			// static Node maxNode;
+
+			ans[0] = Integer.MIN_VALUE;
+
+			subTreeSumhelper(ans, root);
+
+			return ans[0];
+
+		}
+
+		int subTreeSumhelper(int[] ans, Node root) {
+			if (root == null)
+				return 0;
+
+			root.data += subTreeSumhelper(ans, root.left) + subTreeSumhelper(ans, root.right);
+
+			if (ans[0] < root.data) {
+				ans[0] = root.data;
+			}
+
+			return root.data;
+		}
+
+		
 	public static void main(String[] args) {
 	
 		BinaryTree tree = new BinaryTree();
