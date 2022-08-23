@@ -924,7 +924,39 @@ public class BinaryTree {
 
 			return root.data;
 		}
+		
+		
+		//O(n),O(n)
+		
+		ArrayList<Integer> maxPathFromRootToLeaf(Node root) {
+			if (root == null) {
+				ArrayList<Integer> output = new ArrayList<>();
+				return output;
+			}
 
+			// right
+
+			ArrayList<Integer> rightPath = maxPathFromRootToLeaf(root.right);
+
+			// left
+
+			ArrayList<Integer> leftPath = maxPathFromRootToLeaf(root.left);
+
+			// compare size and add current node
+
+			if (rightPath.size() > leftPath.size())
+				rightPath.add(root.data);
+			else
+				leftPath.add(root.data);
+
+			// return max Path
+
+			if (rightPath.size() > leftPath.size())
+				return rightPath;
+			else
+				return leftPath;
+
+		}
 		
 	public static void main(String[] args) {
 	
@@ -936,6 +968,7 @@ public class BinaryTree {
 		 tree.root.right = new Node(3);
 	     tree.root.left.left = new Node(4);
 	     tree.root.left.right=new Node(5);
+	     tree.root.left.right.right=new Node(6);
 	     
 	     tree1.root = new Node(2);
 		 tree1.root.left = new Node(4);
@@ -1062,6 +1095,13 @@ public class BinaryTree {
 		
 		//System.out.println("\nConverting to sum tree :");
 		//System.out.println(tree.transformToSumTree(tree.root));
+		
+		ArrayList<Integer> op = tree.maxPathFromRootToLeaf(tree.root);
+		
+		int n=op.size();
+		for(int i=n-1;i>=0;i--)
+			System.out.println(op.get(i)+"->");
+		
 		
 		
 	}
