@@ -24,7 +24,7 @@ public class BST {
 
 	}
 
-	// O(logn),O(n)
+	// O(logn),O(h)
 	Node insertKey(Node root, int key) {
 
 		if (root == null) {
@@ -48,7 +48,7 @@ public class BST {
 		inOrder(root.right);
 	}
 
-	// O(logn),O(n)
+	// O(logn),O(h)
 	boolean searchKey(int key) {
 		return search(root, key);
 	}
@@ -66,21 +66,73 @@ public class BST {
 
 	}
 
+	// O(h),O(h)
+
+	void deleteKey(int key) {
+		root = delete(root, key);
+
+	}
+
+	Node delete(Node root, int key) {
+
+		if (root == null)
+			return root;
+
+		// recurse left
+		if (key < root.data)
+			root.left = delete(root.left, key);
+		// recurse right
+		else if (key > root.data)
+			root.right = delete(root.right, key);
+		// found
+		else {
+			// if only one child
+			if (root.left == null)
+				return root.right;
+			else if (root.right == null)
+				return root.left;
+			else {
+				// having both childs
+
+				// find min val in right sub tree and assign to curr node
+				root.data = minValueRightSubTree(root.right);
+				// delete that min Value in Right SubTree
+				root.right = delete(root.right, root.data);
+			}
+
+		}
+
+		return root;
+	}
+
+	int minValueRightSubTree(Node root) {
+
+		int minVal = root.data;
+		while (root.left != null) {
+			minVal = root.left.data;
+			root = root.left;
+		}
+
+		return minVal;
+	}
+
 	public static void main(String[] args) {
 		BST tree = new BST();
 
-		tree.insert(8);
-		tree.insert(3);
-		tree.insert(1);
-		tree.insert(6);
-		tree.insert(7);
-		tree.insert(10);
-		tree.insert(14);
-		tree.insert(4);
+		tree.insert(50);
+		tree.insert(30);
+		tree.insert(20);
+		tree.insert(40);
+		tree.insert(70);
+		tree.insert(60);
+		tree.insert(80);
 
 		tree.inOrder(tree.root);
 		System.out.println();
 		System.out.println(tree.searchKey(3));
+		tree.deleteKey(20);
+		tree.deleteKey(80);
+		tree.inOrder(tree.root);
 
 	}
 }
