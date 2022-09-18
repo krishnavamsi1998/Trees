@@ -48,6 +48,24 @@ public class BST {
 		inOrder(root.right);
 	}
 
+	// O(logn),O(n)
+	boolean searchKey(int key) {
+		return search(root, key);
+	}
+
+	boolean search(Node root, int key) {
+		if (root == null)
+			return false;
+
+		if (root.data == key)
+			return true;
+		else if (key < root.data)
+			return search(root.left, key);
+		else
+			return search(root.right, key);
+
+	}
+
 	public static void main(String[] args) {
 		BST tree = new BST();
 
@@ -61,5 +79,8 @@ public class BST {
 		tree.insert(4);
 
 		tree.inOrder(tree.root);
+		System.out.println();
+		System.out.println(tree.searchKey(3));
+
 	}
 }
