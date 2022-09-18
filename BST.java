@@ -107,13 +107,43 @@ public class BST {
 
 	int minValueRightSubTree(Node root) {
 
-		int minVal = root.data;
+		// int minVal = root.data;
 		while (root.left != null) {
-			minVal = root.left.data;
+			// minVal = root.left.data;
 			root = root.left;
 		}
 
-		return minVal;
+		return root.data;
+	}
+
+	// min value in bst is left most element in left sub tree
+	// O(h),O(h)
+
+	int minValueInBST() {
+
+		Node curr = root;
+
+		while (curr.left != null) {
+			curr = curr.left;
+
+		}
+		return curr.data;
+
+	}
+
+	// max value in bst is right most element in right sub tree
+	// O(h),O(h)
+
+	int maxValueInBST() {
+
+		Node curr = root;
+
+		while (curr.right != null) {
+			curr = curr.right;
+
+		}
+		return curr.data;
+
 	}
 
 	public static void main(String[] args) {
@@ -130,8 +160,11 @@ public class BST {
 		tree.inOrder(tree.root);
 		System.out.println();
 		System.out.println(tree.searchKey(3));
-		tree.deleteKey(20);
-		tree.deleteKey(80);
+		// tree.deleteKey(30);
+		// tree.deleteKey(80);
+		System.out.println(tree.minValueInBST());
+		System.out.println(tree.maxValueInBST());
+
 		tree.inOrder(tree.root);
 
 	}
