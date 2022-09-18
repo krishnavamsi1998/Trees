@@ -105,6 +105,8 @@ public class BST {
 		return root;
 	}
 
+	//In Order Successor
+	
 	int minValueRightSubTree(Node root) {
 
 		// int minVal = root.data;
@@ -114,6 +116,18 @@ public class BST {
 		}
 
 		return root.data;
+	}
+	
+	//In order Predecessor
+	//O(h),O(h)
+	
+	int maxValueLeftSubTree() {
+
+		Node curr = root.left;
+
+		while (curr.right != null)
+			curr = curr.right;
+		return curr.data;
 	}
 
 	// min value in bst is left most element in left sub tree
@@ -156,16 +170,24 @@ public class BST {
 		tree.insert(70);
 		tree.insert(60);
 		tree.insert(80);
-
+		
+	//     50                          
+        //   /    \           
+        //  30      70    
+       //  /  \    /  \                     
+     //  20   40  60   80
+		System.out.println("in order travsersal :");
 		tree.inOrder(tree.root);
 		System.out.println();
-		System.out.println(tree.searchKey(3));
+		System.out.println("searching key "+tree.searchKey(3));
 		// tree.deleteKey(30);
 		// tree.deleteKey(80);
-		System.out.println(tree.minValueInBST());
-		System.out.println(tree.maxValueInBST());
+		System.out.println("Min val :"+tree.minValueInBST());
+		System.out.println("Max val :"+tree.maxValueInBST());
 
-		tree.inOrder(tree.root);
+		//tree.inOrder(tree.root);
+		System.out.println("In order Predeccesor/max Value in left sub tree");
+		System.out.println(tree.maxValueLeftSubTree());
 
 	}
 }
