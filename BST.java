@@ -1,5 +1,8 @@
 package trees;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BST {
 
 	class Node {
@@ -159,6 +162,33 @@ public class BST {
 		return curr.data;
 
 	}
+	//O(n),O(n)
+
+	boolean isBST() {
+		List<Integer> inorder = new ArrayList<>();
+
+		generateInOrder(root, inorder);
+
+		// check if its in ascending order
+
+		for (int i = 1; i < inorder.size(); i++) {
+			if (inorder.get(i - 1) >= inorder.get(i))
+				return false;
+
+		}
+		return true;
+
+	}
+
+	void generateInOrder(Node root, List<Integer> inorder) {
+		if (root == null)
+			return;
+
+		generateInOrder(root.left, inorder);
+		inorder.add(root.data);
+		generateInOrder(root.right, inorder);
+
+	}
 
 	public static void main(String[] args) {
 		BST tree = new BST();
@@ -171,7 +201,7 @@ public class BST {
 		tree.insert(60);
 		tree.insert(80);
 		
-	//     50                          
+		//     50                          
         //   /    \           
         //  30      70    
        //  /  \    /  \                     
@@ -188,6 +218,8 @@ public class BST {
 		//tree.inOrder(tree.root);
 		System.out.println("In order Predeccesor/max Value in left sub tree");
 		System.out.println(tree.maxValueLeftSubTree());
+		
+		System.out.println(tree.isBST());
 
 	}
 }
